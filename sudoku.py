@@ -1,5 +1,17 @@
 from pprint import pprint
+from os import system, name
+from time import sleep
 
+def clear():
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+
+def printscreen(puzzle):
+    clear()
+    pprint(puzzle)
+    # sleep(0.1)
 
 def find_next_empty(puzzle):
     # finds the next row, col on the puzzle that's not filled yet --> rep with -1
@@ -63,6 +75,7 @@ def solve_sudoku(puzzle):
         if is_valid(puzzle, guess, row, col):
             # step 3.1: if this is a valid guess, then place it at that spot on the puzzle
             puzzle[row][col] = guess
+            printscreen(puzzle)
             # step 4: then we recursively call our solver!
             if solve_sudoku(puzzle):
                 return True
@@ -88,4 +101,4 @@ if __name__ == '__main__':
         [1, -1, 9,   -1, -1, -1,   2, -1, -1]
     ]
     print(solve_sudoku(example_board))
-    pprint(example_board)
+    # pprint(example_board)
